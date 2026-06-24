@@ -47,7 +47,16 @@
       "PowerShell(npx tsc --noEmit 2>&1 | Where-Object { $_ -notmatch 'validator\\\\.ts' } | Select-Object -First 10; Write-Output \"=== done ===\")",
       "Bash(git init *)",
       "Bash(git config *)",
-      "Bash(git add *)"
+      "Bash(git add *)",
+      "Bash(git commit -q -m 'first commit *)",
+      "Bash(git branch *)",
+      "Bash(git remote *)",
+      "Bash(git push *)",
+      "Bash(gh --version)",
+      "Bash(gh auth *)",
+      "PowerShell($gh = Get-Command gh -ErrorAction SilentlyContinue; if \\($gh\\) { Write-Output \"gh found: $\\($gh.Source\\)\"; gh auth status 2>&1 | Select-Object -First 8 } else { Write-Output \"gh NOT installed\" }; Write-Output \"--- git credential helper ---\"; git config --get credential.helper)",
+      "Bash(git credential *)",
+      "Bash(git commit -q -m 'Trim page title to '\\\\''Furnished Dubai Townhouses | Clifton Capital'\\\\'' *)"
     ]
   }
 }

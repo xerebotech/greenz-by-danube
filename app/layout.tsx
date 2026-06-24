@@ -20,11 +20,11 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.cliftonuae.com"),
-  title: "Greenz by Danube | Clifton Capital",
+  title: "Furnished Dubai Townhouses | Clifton Capital",
   description:
-    "Greenz by Danube — own a fully furnished Dubai townhouse from AED 3.5M, paid 1% monthly. A green, low-density community beside Dubai Silicon Oasis. Freehold, Golden Visa eligible, handover Q4 2029. Guided by Clifton Capital Real Estate LLC.",
+    "Own a fully furnished Dubai townhouse from AED 3.5M, paid 1% monthly. A green, low-density community beside Dubai Silicon Oasis. Freehold, Golden Visa eligible, handover Q4 2029. Guided by Clifton Capital Real Estate LLC.",
   openGraph: {
-    title: "Greenz by Danube · Furnished Dubai Townhouses | Clifton Capital",
+    title: "Furnished Dubai Townhouses | Clifton Capital",
     description:
       "Fully furnished, Italian-finished townhouses beside Dubai Silicon Oasis. From AED 3.5M, paid 1% monthly. Handover Q4 2029.",
     siteName: "Clifton Capital Real Estate",
