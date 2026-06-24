@@ -1,0 +1,266 @@
+@import "tailwindcss";
+
+@theme inline {
+  /* Type — mirrors cliftonuae.com */
+  --font-display: var(--font-cinzel), serif;
+  --font-sans: var(--font-geist-sans), sans-serif;
+  --font-mono: var(--font-geist-mono), monospace;
+
+  /* Light palette — pulled from cliftonuae.com */
+  --color-cream: #f3f1ea; /* primary page background */
+  --color-sand: #eae4d8; /* alternate section background */
+  --color-paper: #ffffff; /* cards / form */
+  --color-ink: #23312d; /* headings, dark text, dark buttons */
+  --color-ink-soft: #4f5d57; /* body copy */
+  --color-muted: #7d7d79; /* labels / captions */
+  --color-copper: #ae9573;
+  --color-copper-dark: #93785a;
+  --color-gold: #b4a68c;
+  --color-wa: #2f9e44; /* WhatsApp green */
+  --color-line: #e0d9ca; /* hairline borders */
+  --color-footer: #1a1a1a; /* dark footer */
+
+  /* Motion */
+  --ease-lux: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-cream);
+  color: var(--color-ink);
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--color-copper);
+  color: #fff;
+}
+
+/* Slim, on-brand scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-sand);
+}
+::-webkit-scrollbar-thumb {
+  background: #cbbfa6;
+  border-radius: 999px;
+  border: 2px solid var(--color-sand);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-copper);
+}
+
+/* ── Eyebrow label with a leading copper rule ── */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  font-family: var(--font-sans);
+  font-size: 10px;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--color-copper);
+  font-weight: 700;
+}
+.eyebrow::before {
+  content: "";
+  width: 28px;
+  height: 1px;
+  background: var(--color-copper);
+  opacity: 0.7;
+}
+.eyebrow.eyebrow--plain::before {
+  display: none;
+}
+
+/* ── Gradient text for hero accent ── */
+.text-gradient-copper {
+  background: linear-gradient(120deg, #c2a986 0%, #ae9573 50%, #8a7458 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* ── Subtle dotted texture ── */
+.bg-grain {
+  position: relative;
+}
+.bg-grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: radial-gradient(
+    circle at 1px 1px,
+    rgba(35, 49, 45, 0.05) 1px,
+    transparent 0
+  );
+  background-size: 22px 22px;
+  opacity: 0.6;
+}
+
+/* ── Scroll-reveal (driven by Reveal.tsx) ── */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.9s var(--ease-lux),
+    transform 0.9s var(--ease-lux);
+  will-change: opacity, transform;
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* ── Hairline divider ── */
+.rule-copper {
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(174, 149, 115, 0.45),
+    transparent
+  );
+}
+
+/* ── Premium buttons ── */
+.btn-lux,
+.btn-ink,
+.btn-wa,
+.btn-lux-ghost {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  overflow: hidden;
+  padding: 16px 36px;
+  border-radius: 999px;
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    transform 0.5s var(--ease-lux),
+    box-shadow 0.5s var(--ease-lux),
+    color 0.5s var(--ease-lux),
+    background-size 0.5s var(--ease-lux),
+    background-color 0.5s var(--ease-lux),
+    border-color 0.5s var(--ease-lux);
+}
+
+/* Solid copper — with a diagonal light sweep */
+.btn-lux {
+  background: linear-gradient(135deg, #bda284 0%, #ae9573 55%, #93785a 100%);
+  color: #fff;
+  box-shadow: 0 12px 30px -10px rgba(174, 149, 115, 0.6);
+}
+.btn-lux:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 18px 44px -12px rgba(174, 149, 115, 0.7);
+}
+.btn-lux::before,
+.btn-ink::before,
+.btn-wa::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -80%;
+  width: 55%;
+  height: 100%;
+  background: linear-gradient(
+    120deg,
+    transparent,
+    rgba(255, 255, 255, 0.45),
+    transparent
+  );
+  transform: skewX(-20deg);
+  transition: left 0.75s var(--ease-lux);
+  pointer-events: none;
+}
+.btn-lux:hover::before,
+.btn-ink:hover::before,
+.btn-wa:hover::before {
+  left: 135%;
+}
+
+/* Solid dark-green */
+.btn-ink {
+  background: var(--color-ink);
+  color: var(--color-cream);
+  box-shadow: 0 12px 30px -12px rgba(35, 49, 45, 0.55);
+}
+.btn-ink:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 18px 44px -14px rgba(35, 49, 45, 0.65);
+}
+
+/* WhatsApp green */
+.btn-wa {
+  background: var(--color-wa);
+  color: #fff;
+  box-shadow: 0 12px 30px -12px rgba(47, 158, 68, 0.5);
+}
+.btn-wa:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 18px 44px -14px rgba(47, 158, 68, 0.6);
+}
+
+/* Outline — copper that fills on hover */
+.btn-lux-ghost {
+  color: var(--color-copper-dark);
+  border: 1px solid var(--color-copper);
+  background-image: linear-gradient(var(--color-copper), var(--color-copper));
+  background-repeat: no-repeat;
+  background-position: bottom center;
+  background-size: 100% 0%;
+}
+.btn-lux-ghost:hover {
+  color: #fff;
+  transform: translateY(-2px);
+  background-size: 100% 100%;
+}
+
+/* Arrow nudge */
+.btn-lux:hover .btn-arrow,
+.btn-ink:hover .btn-arrow,
+.btn-wa:hover .btn-arrow,
+.btn-lux-ghost:hover .btn-arrow {
+  transform: translateX(4px);
+}
+.btn-arrow {
+  transition: transform 0.5s var(--ease-lux);
+}
+
+/* ── Card hover lift ── */
+.card-lux {
+  transition:
+    transform 0.5s var(--ease-lux),
+    border-color 0.5s var(--ease-lux),
+    box-shadow 0.5s var(--ease-lux);
+}
+.card-lux:hover {
+  transform: translateY(-6px);
+  border-color: rgba(174, 149, 115, 0.55);
+  box-shadow: 0 24px 50px -28px rgba(35, 49, 45, 0.4);
+}
