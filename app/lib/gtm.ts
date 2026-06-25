@@ -32,12 +32,17 @@ export function gtmEvent(
 export function updateConsent(choice: ConsentChoice): void {
   if (typeof window === "undefined") return;
   window.dataLayer = window.dataLayer || [];
-  // gtag() pushes the special "consent" command onto the same dataLayer.
-  function gtag(...args: unknown[]) {
-    window.dataLayer!.push(args as unknown as Record<string, unknown>);
+  // GTM only recognises a consent command when gtag pushes the `arguments`
+  // object (not a plain array). The bootstrap defines window.gtag this way;
+  // recreate it as a fallback if it's missing.
+  if (typeof window.gtag !== "function") {
+    window.gtag = function gtag() {
+      // eslint-disable-next-line prefer-rest-params
+      (window.dataLayer as unknown[]).push(arguments);
+    };
   }
-  gtag("consent", "update", choice);
-  // Mirror as a normal event so triggers can react to the consent change.
+  window.gtag("consent", "update", choice);
+  // Mirror as a normal event so triggers can also react to the consent change.
   gtmEvent("consent_update", { consent: choice });
 }
 

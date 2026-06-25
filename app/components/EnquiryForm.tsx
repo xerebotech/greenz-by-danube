@@ -80,10 +80,17 @@ export default function EnquiryForm() {
     setSent(true);
 
     // Lead conversion — source is the on-page enquiry form (not WhatsApp).
+    // `user_data` is for Google Ads Enhanced Conversions ONLY (GTM hashes it).
+    // Never map these raw fields into GA4 event parameters.
     gtmEvent("generate_lead", {
       form_id: "hero_enquiry",
       enquiry_type: intent === "live" ? "to_live_in" : "to_invest",
       lead_source: "form-enquiry",
+      user_data: {
+        name,
+        email_address: email,
+        phone_number: phone,
+      },
     });
 
     // Store the lead in the Google Sheet.
@@ -140,7 +147,15 @@ export default function EnquiryForm() {
 
         <div className="rule-copper my-7 opacity-70" />
 
-        <form ref={formRef} onSubmit={handleSubmit} onFocusCapture={handleFirstFocus} className="flex flex-col gap-[18px]">
+        <form
+          ref={formRef}
+          id="enquiry-form"
+          name="enquiry-form"
+          data-form="hero-enquiry"
+          onSubmit={handleSubmit}
+          onFocusCapture={handleFirstFocus}
+          className="flex flex-col gap-[18px]"
+        >
           {fields.map((f) => (
             <div key={f.id}>
               <label htmlFor={f.id} className={labelClass}>
@@ -193,6 +208,8 @@ export default function EnquiryForm() {
 
           <button
             type="submit"
+            id="enquiry-submit"
+            data-cta="enquiry-submit"
             disabled={sent}
             className="group relative mt-1 flex w-full items-center justify-center gap-2.5 overflow-hidden rounded-xl bg-gradient-to-br from-[#c2a986] via-[#ae9573] to-[#93785a] py-4 text-[11px] font-bold uppercase tracking-[0.25em] text-rich transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_16px_36px_-14px_rgba(174,149,115,0.7)] disabled:opacity-80"
           >
