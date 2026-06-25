@@ -149,18 +149,18 @@ export default function Footer() {
         <div className="mx-auto max-w-[1400px] px-6 sm:px-12 py-8 flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="flex items-center gap-5 text-center md:text-left">
             <Image
-              src="/permit.png"
-              alt="RERA Permit"
-              width={64}
-              height={64}
-              className="h-14 w-14 shrink-0 rounded-sm bg-white p-1 object-contain"
+              src="/images/Trakheesi-QR.webp"
+              alt="Trakheesi RERA Permit QR — verify this listing"
+              width={200}
+              height={200}
+              className="h-24 w-24 shrink-0 rounded-lg bg-white p-1.5 object-contain sm:h-28 sm:w-28"
             />
             <div>
               <p className="text-[13px] text-white/45 font-light">
                 © 2026 Clifton Capital Real Estate LLC. All rights reserved.
               </p>
               <p className="mt-1 text-[10px] uppercase tracking-[0.2em] text-white/30">
-                RERA: 40255 | License: 1289051
+RERA : 2043214467 | License: 1289051
               </p>
             </div>
           </div>

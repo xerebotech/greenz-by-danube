@@ -70,7 +70,8 @@
       "Bash(grep -oiE 'consent-init[^>]*>.{0,300}' /tmp/cc.html)",
       "Bash(grep -n 'tel:+971559304697\\\\|wa.me/${WHATSAPP}\\\\|Call +971\\\\|Chat on WhatsApp' app/page.tsx)",
       "Bash(rm -f _h.js)",
-      "Bash(git commit -q -m 'Add cinematic hero, gallery, GTM + consent, Sheets lead capture *)"
+      "Bash(git commit -q -m 'Add cinematic hero, gallery, GTM + consent, Sheets lead capture *)",
+      "Bash(git commit -q -m 'Fix Consent Mode update + add lead user_data for ads/meta matching *)"
     ]
   }
 }
