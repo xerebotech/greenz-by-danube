@@ -1,3 +1,7 @@
+"use client";
+
+import { gtmEvent } from "../lib/gtm";
+
 const faqs = [
   {
     q: "How much do the homes cost?",
@@ -29,7 +33,14 @@ export default function Faq() {
   return (
     <div className="mx-auto max-w-3xl divide-y divide-line border-y border-line">
       {faqs.map((f) => (
-        <details key={f.q} className="group">
+        <details
+          key={f.q}
+          className="group"
+          onToggle={(e) => {
+            if (e.currentTarget.open)
+              gtmEvent("faq_open", { faq_question: f.q });
+          }}
+        >
           <summary className="flex cursor-pointer items-center justify-between gap-6 py-6 list-none">
             <span className="font-display text-lg sm:text-xl font-medium text-ink">
               {f.q}

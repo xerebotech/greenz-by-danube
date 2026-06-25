@@ -5,13 +5,11 @@ import { useEffect, useState } from "react";
 
 const links = [
   { href: "#offer", label: "The Offer" },
+  { href: "#gallery", label: "Gallery" },
   { href: "#community", label: "Community" },
   { href: "#location", label: "Location" },
   { href: "#faq", label: "FAQ" },
 ];
-
-const linkClass =
-  "relative text-[10px] font-bold uppercase tracking-[0.25em] text-ink/70 transition-colors hover:text-ink after:absolute after:-bottom-1.5 after:left-0 after:h-px after:w-0 after:bg-copper after:transition-all after:duration-300 hover:after:w-full";
 
 export default function Nav() {
   const [scrolled, setScrolled] = useState(false);
@@ -22,6 +20,14 @@ export default function Nav() {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  // At the very top we sit over the dark cinematic hero → light text/logo.
+  // Once scrolled onto the light content → dark text/logo on a frosted bar.
+  const linkClass = `relative text-[10px] font-bold uppercase tracking-[0.25em] transition-colors after:absolute after:-bottom-1.5 after:left-0 after:h-px after:w-0 after:bg-copper after:transition-all after:duration-300 hover:after:w-full ${
+    scrolled
+      ? "text-ink/70 hover:text-ink"
+      : "text-cream/75 hover:text-cream"
+  }`;
 
   return (
     <nav
@@ -38,7 +44,9 @@ export default function Nav() {
           width={2544}
           height={1288}
           priority
-          className="h-16 w-auto object-contain sm:h-20"
+          className={`h-16 w-auto object-contain transition-all duration-500 sm:h-20 ${
+            scrolled ? "" : "brightness-0 invert"
+          }`}
         />
       </a>
 
@@ -53,7 +61,11 @@ export default function Nav() {
 
         <a
           href="#enquiry"
-          className="text-[11px] font-bold uppercase tracking-[0.25em] text-copper border border-copper px-5 sm:px-6 py-3 transition-all duration-500 hover:bg-copper hover:text-white"
+          className={`text-[11px] font-bold uppercase tracking-[0.25em] border px-5 sm:px-6 py-3 transition-all duration-500 ${
+            scrolled
+              ? "text-copper border-copper hover:bg-copper hover:text-white"
+              : "text-cream border-cream/60 hover:bg-cream hover:text-ink"
+          }`}
         >
           Get In Touch
         </a>

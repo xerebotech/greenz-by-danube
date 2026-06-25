@@ -5,8 +5,8 @@ import EnquiryForm from "./components/EnquiryForm";
 import Faq from "./components/Faq";
 import Gallery from "./components/Gallery";
 import Reveal from "./components/Reveal";
+import ContactLink from "./components/ContactLink";
 
-const WHATSAPP = "971559304697";
 
 const iconProps = {
   width: 20,
@@ -257,25 +257,35 @@ export default function Home() {
         {/* ═══════════════ HERO ═══════════════ */}
         <section
           id="enquiry"
-          className="relative overflow-hidden px-6 sm:px-12 pt-28 pb-20 sm:pt-32 sm:pb-24"
+          className="relative isolate overflow-hidden bg-ink px-5 pt-28 pb-16 sm:flex sm:min-h-[92vh] sm:items-center sm:px-12 sm:pt-32 sm:pb-24"
         >
-          {/* soft light background */}
-          <div className="pointer-events-none absolute inset-0" aria-hidden="true">
-            <div className="absolute inset-0 bg-[radial-gradient(120%_90%_at_85%_0%,#ffffff_0%,#f5f2ec_45%,#efe9dd_100%)]" />
-            <div className="absolute -top-32 -right-24 h-[30rem] w-[30rem] rounded-full bg-copper/10 blur-[130px]" />
+          {/* Image: a clean banner on mobile (villa fully visible, text sits on the
+              dark base below it); full-bleed cinematic overlay on desktop. */}
+          <div className="absolute inset-x-0 top-0 -z-10 h-[300px] overflow-hidden sm:h-full">
+            <Image
+              src={encodeURI("/images/Exterior–Villas/Exterior 1.webp")}
+              alt="Greenz by Danube — fully furnished villas at twilight"
+              width={1642}
+              height={958}
+              priority
+              sizes="100vw"
+              className="h-full w-full object-cover object-[50%_42%]"
+            />
+            {/* fade image → solid dark base (downwards on mobile, sideways on desktop) */}
+            <div className="absolute inset-0 bg-gradient-to-b from-ink/45 via-ink/15 to-ink sm:bg-gradient-to-r sm:from-ink/90 sm:via-ink/60 sm:to-ink/25" />
+            <div className="absolute inset-0 hidden sm:block bg-gradient-to-t from-ink/85 via-transparent to-ink/30" />
           </div>
-          <div className="bg-grain absolute inset-0 pointer-events-none" aria-hidden="true" />
 
-          <div className="relative mx-auto max-w-[1400px] grid lg:grid-cols-[1.1fr_0.9fr] gap-14 lg:gap-24 items-center">
+          <div className="relative mx-auto mt-[210px] grid w-full max-w-[1400px] items-center gap-10 sm:mt-0 lg:grid-cols-[1.05fr_0.95fr] lg:gap-20">
             <div>
               <Reveal>
-                <p className="eyebrow">
+                <p className="eyebrow text-copper">
                   Near Dubai Silicon Oasis · Furnished townhouses &amp; villas
                 </p>
               </Reveal>
 
               <Reveal delay={80}>
-                <h1 className="mt-7 font-display font-semibold text-ink leading-[1.06] text-[42px] sm:text-[60px] tracking-[0.01em]">
+                <h1 className="mt-5 font-display font-semibold text-cream leading-[1.08] text-[32px] sm:text-[56px] tracking-[0.01em] drop-shadow-[0_2px_20px_rgba(0,0,0,0.4)]">
                   Own a Fully Furnished
                   <br className="hidden sm:block" /> Dubai Townhouse.
                   <span className="block mt-3 text-gradient-copper">
@@ -285,33 +295,22 @@ export default function Home() {
               </Reveal>
 
               <Reveal delay={160}>
-                <p className="mt-8 max-w-xl text-[17px] leading-[1.85] text-ink-soft font-light">
+                <p className="mt-7 max-w-xl text-[17px] leading-[1.8] text-cream/85 font-light">
                   A green, low-density community minutes from Silicon Oasis and
                   Mirdif. Italian-finished interiors, 50+ amenities, freehold
-                  ownership, and a 1% monthly plan that runs until handover in
-                  2029. Move in, or let it from day one.
+                  ownership, and a 1% monthly plan until handover in 2029.
                 </p>
               </Reveal>
 
               <Reveal delay={220}>
-                <ul className="mt-9 flex flex-col gap-3">
+                <ul className="mt-8 flex flex-col gap-2.5">
                   {heroBullets.map((item) => (
                     <li
                       key={item}
-                      className="group flex items-center gap-3.5 rounded-xl border border-line bg-gradient-to-r from-white to-cream/40 px-4 py-3.5 text-[15px] font-light text-ink shadow-[0_8px_24px_-18px_rgba(35,49,45,0.35)] transition-all duration-500 [transition-timing-function:var(--ease-lux)] hover:-translate-y-0.5 hover:border-copper/40 hover:shadow-[0_16px_34px_-20px_rgba(35,49,45,0.45)]"
+                      className="group flex items-center gap-3.5 rounded-xl border border-white/15 bg-white/[0.07] px-4 py-3 text-[14.5px] font-light text-cream backdrop-blur-md transition-all duration-500 [transition-timing-function:var(--ease-lux)] hover:border-copper/50 hover:bg-white/[0.12]"
                     >
-                      <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-gradient-to-br from-copper to-copper-dark text-white shadow-[0_4px_12px_rgba(174,149,115,0.5)] ring-2 ring-copper/15 transition-transform duration-500 group-hover:scale-110">
-                        <svg
-                          viewBox="0 0 24 24"
-                          width="14"
-                          height="14"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="3"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          aria-hidden="true"
-                        >
+                      <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-gradient-to-br from-copper to-copper-dark text-white shadow-[0_4px_12px_rgba(174,149,115,0.5)] ring-2 ring-copper/20 transition-transform duration-500 group-hover:scale-110">
+                        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                           <path d="M5 13l4 4L19 7" />
                         </svg>
                       </span>
@@ -322,18 +321,19 @@ export default function Home() {
               </Reveal>
 
               <Reveal delay={300}>
-                <div className="mt-10 flex flex-wrap gap-4">
+                <div className="mt-9 flex flex-wrap gap-4">
                   <a href="#offer" className="btn-lux">
                     See Prices &amp; Floor Plans
                     <span className="btn-arrow">→</span>
                   </a>
                   <a
-                    href={`https://wa.me/${WHATSAPP}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="btn-wa"
+                    href="#gallery"
+                    className="group inline-flex items-center justify-center gap-3 rounded-full border border-cream/40 px-9 py-4 text-[11px] font-bold uppercase tracking-[0.25em] text-cream transition-all duration-500 hover:border-cream hover:bg-cream hover:text-ink"
                   >
-                    WhatsApp us
+                    View the Residences
+                    <span className="transition-transform duration-500 group-hover:translate-x-1">
+                      →
+                    </span>
                   </a>
                 </div>
               </Reveal>
@@ -412,7 +412,7 @@ export default function Home() {
         </section>
 
         {/* ═══════════════ SHOWCASE / GALLERY ═══════════════ */}
-        <section className="relative bg-cream px-6 sm:px-12 py-16 sm:py-24">
+        <section id="gallery" className="relative bg-cream px-6 sm:px-12 py-16 sm:py-24">
           <div className="mx-auto max-w-[1400px]">
             <Reveal>
               <p className="eyebrow">A glimpse inside</p>
@@ -423,28 +423,12 @@ export default function Home() {
               </h2>
             </Reveal>
 
-            {/* feature image */}
-            <Reveal delay={120}>
-              <div className="group relative mt-12 h-[300px] sm:h-[480px] overflow-hidden rounded-3xl border border-line shadow-[0_30px_70px_-40px_rgba(35,49,45,0.55)]">
-                <Image
-                  src={encodeURI("/images/Exterior–Villas/Exterior 1.webp")}
-                  alt="Greenz by Danube — fully furnished villa with private pool"
-                  width={1400}
-                  height={800}
-                  sizes="(max-width: 1400px) 100vw, 1400px"
-                  className="h-full w-full object-cover transition-transform duration-[1200ms] [transition-timing-function:var(--ease-lux)] group-hover:scale-105"
-                  priority
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-ink/80 via-ink/10 to-transparent" />
-                <div className="absolute bottom-0 left-0 right-0 p-7 sm:p-10">
-                  <p className="text-[10px] uppercase tracking-[0.35em] text-cream/80 font-semibold">
-                    Exterior · The villas
-                  </p>
-                  <h3 className="mt-3 font-display text-2xl sm:text-3xl font-semibold text-cream max-w-lg leading-tight">
-                    Italian-finished interiors, private sky gardens, move-in ready.
-                  </h3>
-                </div>
-              </div>
+            <Reveal delay={140}>
+              <p className="mt-6 max-w-2xl text-[16px] leading-[1.85] text-ink-soft font-light">
+                Fully furnished villas and townhouses with Italian Dolce Vita
+                interiors, private sky gardens, and 50+ amenities set across
+                landscaped greens. Browse the spaces by category.
+              </p>
             </Reveal>
 
             {/* filterable gallery + lightbox */}
@@ -721,17 +705,19 @@ export default function Home() {
 
                 <div className="rule-copper my-6 opacity-60" />
 
-                <a
+                <ContactLink
                   href="tel:+971559304697"
+                  enquiry="call-enquiry"
                   className="group flex items-center justify-center gap-2.5 rounded-xl border border-line bg-cream/50 py-4 text-[13px] font-semibold tracking-wide text-ink transition-all duration-300 hover:-translate-y-0.5 hover:border-copper hover:text-copper"
                 >
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                     <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z" />
                   </svg>
                   Call +971 55 930 4697
-                </a>
-                <a
-                  href={`https://wa.me/${WHATSAPP}`}
+                </ContactLink>
+                <ContactLink
+                  href="https://wa.me/971559304697"
+                  enquiry="whatsapp-enquiry"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="group mt-3 flex items-center justify-center gap-2.5 overflow-hidden rounded-xl bg-wa py-4 text-[13px] font-semibold tracking-wide text-white shadow-[0_12px_30px_-12px_rgba(47,158,68,0.6)] transition-all duration-300 hover:-translate-y-0.5 hover:brightness-110"
@@ -740,7 +726,7 @@ export default function Home() {
                     <path d="M.057 24l1.687-6.163a11.867 11.867 0 0 1-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 0 1 8.413 3.488 11.824 11.824 0 0 1 3.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 0 1-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 0 0 1.518 5.26l-.999 3.648 3.97-1.607zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z" />
                   </svg>
                   Chat on WhatsApp
-                </a>
+                </ContactLink>
               </div>
             </Reveal>
           </div>

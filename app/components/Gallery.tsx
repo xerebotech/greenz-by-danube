@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useCallback, useEffect, useState } from "react";
+import { gtmEvent } from "../lib/gtm";
 
 type Item = { cat: string; src: string; label: string };
 
@@ -77,7 +78,10 @@ export default function Gallery() {
         {categories.map((c) => (
           <button
             key={c}
-            onClick={() => setActive(c)}
+            onClick={() => {
+              setActive(c);
+              gtmEvent("gallery_filter", { gallery_category: c });
+            }}
             className={`rounded-full px-5 py-2.5 text-[11px] font-bold uppercase tracking-[0.18em] transition-all duration-300 ${
               active === c
                 ? "bg-ink text-cream shadow-[0_8px_20px_-8px_rgba(35,49,45,0.5)]"
@@ -89,35 +93,50 @@ export default function Gallery() {
         ))}
       </div>
 
-      {/* grid */}
-      <div className="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
-        {shown.map((img, i) => (
-          <button
-            key={img.src}
-            onClick={() => setLightbox(i)}
-            className="group relative h-[200px] overflow-hidden rounded-2xl border border-line shadow-[0_16px_40px_-30px_rgba(35,49,45,0.4)] sm:h-[230px]"
-          >
-            <Image
-              src={img.src}
-              alt={`Greenz by Danube — ${img.label}`}
-              width={600}
-              height={460}
-              sizes="(max-width: 640px) 50vw, 25vw"
-              className="h-full w-full object-cover transition-transform duration-[900ms] [transition-timing-function:var(--ease-lux)] group-hover:scale-110"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-ink/85 via-ink/10 to-transparent opacity-80 transition-opacity duration-500 group-hover:opacity-100" />
-            <div className="absolute inset-x-0 bottom-0 flex items-center justify-between p-4">
-              <span className="font-display text-base font-semibold text-cream">
-                {img.label}
-              </span>
-              <span className="grid h-8 w-8 place-items-center rounded-full border border-cream/40 text-cream opacity-0 transition-all duration-500 group-hover:opacity-100">
+      {/* bento mosaic */}
+      <div className="mt-6 grid auto-rows-[170px] grid-cols-2 gap-3.5 [grid-auto-flow:dense] sm:auto-rows-[220px] sm:grid-cols-3 sm:gap-4 lg:grid-cols-4">
+        {shown.map((img, i) => {
+          const span =
+            i % 6 === 0
+              ? "col-span-2 row-span-2"
+              : i % 6 === 3
+                ? "sm:col-span-2"
+                : "";
+          return (
+            <button
+              key={img.src}
+              onClick={() => {
+                setLightbox(i);
+                gtmEvent("view_gallery_image", {
+                  gallery_category: img.label,
+                  image_position: i + 1,
+                });
+              }}
+              className={`group relative overflow-hidden rounded-2xl border border-line shadow-[0_16px_40px_-30px_rgba(35,49,45,0.4)] transition-shadow duration-500 hover:shadow-[0_28px_55px_-30px_rgba(35,49,45,0.55)] ${span}`}
+            >
+              <Image
+                src={img.src}
+                alt={`Greenz by Danube — ${img.label}`}
+                width={900}
+                height={900}
+                sizes="(max-width: 640px) 50vw, 25vw"
+                className="absolute inset-0 h-full w-full object-cover transition-transform duration-[1100ms] [transition-timing-function:var(--ease-lux)] group-hover:scale-[1.07]"
+              />
+              {/* hover overlay */}
+              <div className="absolute inset-0 bg-gradient-to-t from-ink/80 via-ink/5 to-ink/0 opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+              {/* expand icon */}
+              <span className="absolute right-3 top-3 grid h-9 w-9 place-items-center rounded-full bg-cream/15 text-cream backdrop-blur-sm opacity-0 scale-90 transition-all duration-500 group-hover:opacity-100 group-hover:scale-100">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                   <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
                 </svg>
               </span>
-            </div>
-          </button>
-        ))}
+              {/* category label — only on hover */}
+              <span className="absolute bottom-4 left-4 translate-y-2 text-[10px] font-semibold uppercase tracking-[0.28em] text-cream opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100">
+                {img.label}
+              </span>
+            </button>
+          );
+        })}
       </div>
 
       {/* lightbox */}

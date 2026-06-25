@@ -129,6 +129,30 @@ body {
   }
 }
 
+/* ── Success modal animations ── */
+@keyframes cc-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes cc-pop {
+  0% { opacity: 0; transform: scale(0.85) translateY(10px); }
+  60% { transform: scale(1.02) translateY(0); }
+  100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+@keyframes cc-check-pop {
+  0% { transform: scale(0.4); opacity: 0; }
+  55% { transform: scale(1.12); }
+  100% { transform: scale(1); opacity: 1; }
+}
+@keyframes cc-ring {
+  0% { transform: scale(0.8); opacity: 0.55; }
+  100% { transform: scale(1.7); opacity: 0; }
+}
+.animate-fade { animation: cc-fade 0.35s ease both; }
+.animate-pop { animation: cc-pop 0.5s var(--ease-lux) both; }
+.animate-check { animation: cc-check-pop 0.55s var(--ease-lux) 0.1s both; }
+.animate-ring { animation: cc-ring 1.1s ease-out 0.2s forwards; }
+
 /* ── Hairline divider ── */
 .rule-copper {
   height: 1px;

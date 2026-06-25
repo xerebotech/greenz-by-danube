@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { Cinzel, Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import GtmScripts, { GtmNoscript } from "./components/GtmScripts";
+import CookieConsent from "./components/CookieConsent";
+import GeoTracker from "./components/GeoTracker";
 
 const cinzel = Cinzel({
   variable: "--font-cinzel",
@@ -44,7 +47,11 @@ export default function RootLayout({
       className={`${cinzel.variable} ${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-cream text-ink font-sans">
+        <GtmNoscript />
         {children}
+        <CookieConsent />
+        <GeoTracker />
+        <GtmScripts />
       </body>
     </html>
   );

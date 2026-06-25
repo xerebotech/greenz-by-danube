@@ -56,7 +56,21 @@
       "Bash(gh auth *)",
       "PowerShell($gh = Get-Command gh -ErrorAction SilentlyContinue; if \\($gh\\) { Write-Output \"gh found: $\\($gh.Source\\)\"; gh auth status 2>&1 | Select-Object -First 8 } else { Write-Output \"gh NOT installed\" }; Write-Output \"--- git credential helper ---\"; git config --get credential.helper)",
       "Bash(git credential *)",
-      "Bash(git commit -q -m 'Trim page title to '\\\\''Furnished Dubai Townhouses | Clifton Capital'\\\\'' *)"
+      "Bash(git commit -q -m 'Trim page title to '\\\\''Furnished Dubai Townhouses | Clifton Capital'\\\\'' *)",
+      "PowerShell(npx tsc --noEmit 2>&1 | Where-Object { $_ -notmatch 'validator\\\\.ts' } | Select-Object -First 8; Write-Output \"=== done ===\")",
+      "PowerShell(npx tsc --noEmit 2>&1 | Where-Object { $_ -notmatch 'validator\\\\.ts' } | Select-Object -First 6; Write-Output \"=== done ===\")",
+      "Bash(curl -sL --post301 --post302 --max-time 30 -X POST https://script.google.com/macros/s/AKfycbxSpGVg-N4VuT0dCPUpd59tJtDkjuVzWGBv7xEIx-tItQ3GdlJRVtrPuFO3OrSxOVaP/exec -H 'Content-Type: application/json' --data-binary '{\"name\":\"TEST — please delete\",\"phone\":\"+971500000000\",\"email\":\"test@example.com\",\"intent\":\"to live in\",\"source\":\"setup test\",\"timestamp\":\"2026-06-25T00:00:00Z\"}' -w '\\\\n[HTTP %{http_code}]\\\\n')",
+      "Bash(node -e ' *)",
+      "Bash(curl -sL --max-time 25 \"https://www.cliftonuae.com/\")",
+      "Bash(grep -ioE '\\(cookie[^<>\"]{0,80}|consent[^<>\"]{0,60}|gtm-[A-Z0-9]+|G-[A-Z0-9]+|gtag|dataLayer|We use cookies[^<]{0,160}\\)')",
+      "Bash(grep -oiE '\\(We use cookies|cookie|consent|accept|reject|decline|preferences|privacy\\)[^<>{}]{0,140}' /tmp/cc.html)",
+      "Bash(grep -oiE '<button[^>]*>[^<]{0,40}\\(accept|reject|decline|cookie|ok|got it\\)[^<]{0,20}' /tmp/cc.html -i)",
+      "PowerShell(npx tsc --noEmit 2>&1 | Where-Object { $_ -notmatch 'validator\\\\.ts' } | Select-Object -First 12; Write-Output \"=== TS done ===\")",
+      "Bash(grep -oiE 'COOKIE PREFERENCES|Necessary Cookies|Analytics Tracking|Accept All[^<\"]{0,20}|Save Custom|Decline|We respect your privacy[^<\"]{0,80}' /tmp/cc.html)",
+      "Bash(grep -oiE 'consent-init[^>]*>.{0,300}' /tmp/cc.html)",
+      "Bash(grep -n 'tel:+971559304697\\\\|wa.me/${WHATSAPP}\\\\|Call +971\\\\|Chat on WhatsApp' app/page.tsx)",
+      "Bash(rm -f _h.js)",
+      "Bash(git commit -q -m 'Add cinematic hero, gallery, GTM + consent, Sheets lead capture *)"
     ]
   }
 }
