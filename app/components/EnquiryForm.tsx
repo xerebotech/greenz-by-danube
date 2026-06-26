@@ -1,7 +1,8 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { gtmEvent } from "../lib/gtm";
+import { captureAttribution, getAttribution } from "../lib/attribution";
 
 /* — inline icons — */
 function UserIcon() {
@@ -56,6 +57,12 @@ export default function EnquiryForm() {
   const startedRef = useRef(false);
   const formRef = useRef<HTMLFormElement>(null);
 
+  // Record the visitor's entry point (Google Ads / Meta Ads / organic / direct)
+  // on first load so it can travel with the lead to the sheet.
+  useEffect(() => {
+    captureAttribution();
+  }, []);
+
   function closeSuccess() {
     setSent(false);
     setIntent("live");
@@ -76,6 +83,7 @@ export default function EnquiryForm() {
     const phone = (data.get("phone") as string) || "";
     const email = (data.get("email") as string) || "";
     const intentLabel = intent === "live" ? "to live in" : "to invest";
+    const attribution = getAttribution();
 
     setSent(true);
 
@@ -86,6 +94,10 @@ export default function EnquiryForm() {
       form_id: "hero_enquiry",
       enquiry_type: intent === "live" ? "to_live_in" : "to_invest",
       lead_source: "form-enquiry",
+      traffic_channel: attribution.channel,
+      utm_source: attribution.source,
+      utm_medium: attribution.medium,
+      utm_campaign: attribution.campaign,
       user_data: {
         name,
         email_address: email,
@@ -93,12 +105,12 @@ export default function EnquiryForm() {
       },
     });
 
-    // Store the lead in the Google Sheet.
+    // Store the lead in the Google Sheet (with where it came from).
     try {
       await fetch("/api/lead", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, phone, email, intent: intentLabel }),
+        body: JSON.stringify({ name, phone, email, intent: intentLabel, attribution }),
       });
     } catch {
       /* network failure is non-blocking for the visitor */
